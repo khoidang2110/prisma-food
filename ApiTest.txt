@@ -1,0 +1,35 @@
+## like - unlike:
+POST http://localhost:8080/user/create-like
+
+body - raw -json:
+{
+    "user_id":9,
+    "res_id": 6
+}
+## get like list by restaurant:
+GET http://localhost:8080/user/get-like-by-res/1
+
+
+## get like list by user:
+GET http://localhost:8080/user/get-like-by-user/4
+## add rate:
+http://localhost:8080/user/create-rate
+body - raw -json:
+{
+    "user_id":9,
+    "res_id": 6,
+    "amount":5
+}
+## get rate list by restaurant:
+GET http://localhost:8080/user/get-rate-by-res/8
+## get rate list by user:
+GET http://localhost:8080/user/get-rate-by-user/2
+## user - order:
+POST http://localhost:8080/user/create-order
+{
+    "user_id":11,
+    "food_id": 3,
+    "amount":4,
+    "code":"CODE543",
+    "arr_sub_id":"SUBID020"
+}

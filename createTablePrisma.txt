@@ -1,0 +1,253 @@
+# tạo table users
+
+create table users(
+id int AUTO_INCREMENT,
+full_name varchar(100),
+email varchar(225),
+pass_word varchar(255),
+primary key (id)
+)
+
+INSERT INTO users (full_name, email, pass_word) VALUES
+('John Doe', 'johndoe@example.com', 'password123'),
+('Jane Smith', 'janesmith@example.com', 'securepass456'),
+('Alice Johnson', 'alice@example.com', 'qwerty789'),
+('Bob Brown', 'bob@example.com', 'letmein987');
+
+INSERT INTO users (full_name, email, pass_word) VALUES
+('Emily Davis', 'emilydavis@example.com', 'pass1234'),
+('Michael Wilson', 'mwilson@example.com', 'mypass987'),
+('Sophia Garcia', 'sophiagarcia@example.com', 'hellopass'),
+('William Martinez', 'william@example.com', 'securepassword'),
+('Olivia Anderson', 'olivia@example.com', 'passpass12'),
+('James Taylor', 'jamestaylor@example.com', 'jamestpass'),
+('Emma Hernandez', 'emmah@example.com', 'password567'),
+('Daniel Lopez', 'daniel@example.com', 'danielpass321'),
+('Ava Gonzalez', 'ava@example.com', 'secure1234'),
+('Matthew Perez', 'matthew@example.com', 'mattpass456'),
+('Charlotte Carter', 'charlotte@example.com', 'charpass789'),
+('David Rivera', 'drivera@example.com', 'riverapassword'),
+('Chloe Hill', 'chloehill@example.com', 'chloepass123'),
+('Ethan Adams', 'ethanadams@example.com', 'ethanpass456'),
+('Grace Ward', 'graceward@example.com', 'gracepass789'),
+('Aiden Ramirez', 'aidenr@example.com', 'aidenpassword'),
+('Lily Russell', 'lilyrussell@example.com', 'lilypass123'),
+('Mia Coleman', 'miacoleman@example.com', 'miapassword456'),
+('Logan Torres', 'logantorres@example.com', 'loganpass789'),
+('Harper Foster', 'harperf@example.com', 'harperpass123');
+
+#select data
+select * from users;
+
+#tạo table restaurant
+create table restaurant(
+id int AUTO_INCREMENT,
+res_name varchar(100),
+image VARCHAR(255),
+decs VARCHAR(255),
+ primary key (id) 
+)
+
+INSERT INTO restaurant (res_name, image, decs) VALUES
+('Restaurant A', 'image1.jpg', 'Description for Restaurant A'),
+('Restaurant B', 'image2.jpg', 'Description for Restaurant B'),
+('Restaurant C', 'image3.jpg', 'Description for Restaurant C'),
+('Restaurant D', 'image4.jpg', 'Description for Restaurant D'),
+('Restaurant E', 'image5.jpg', 'Description for Restaurant E'),
+('Restaurant F', 'image6.jpg', 'Description for Restaurant F'),
+('Restaurant G', 'image7.jpg', 'Description for Restaurant G'),
+('Restaurant H', 'image8.jpg', 'Description for Restaurant H'),
+('Restaurant I', 'image9.jpg', 'Description for Restaurant I'),
+('Restaurant J', 'image10.jpg', 'Description for Restaurant J'),
+('Restaurant K', 'image11.jpg', 'Description for Restaurant K'),
+('Restaurant L', 'image12.jpg', 'Description for Restaurant L'),
+('Restaurant M', 'image13.jpg', 'Description for Restaurant M'),
+('Restaurant N', 'image14.jpg', 'Description for Restaurant N'),
+('Restaurant O', 'image15.jpg', 'Description for Restaurant O'),
+('Restaurant P', 'image16.jpg', 'Description for Restaurant P'),
+('Restaurant Q', 'image17.jpg', 'Description for Restaurant Q'),
+('Restaurant R', 'image18.jpg', 'Description for Restaurant R'),
+('Restaurant S', 'image19.jpg', 'Description for Restaurant S'),
+('Restaurant T', 'image20.jpg', 'Description for Restaurant T'),
+('Restaurant U', 'image21.jpg', 'Description for Restaurant U'),
+('Restaurant V', 'image22.jpg', 'Description for Restaurant V'),
+('Restaurant W', 'image23.jpg', 'Description for Restaurant W'),
+('Restaurant X', 'image24.jpg', 'Description for Restaurant X');
+
+#select data sau khi tạo 
+select * from restaurant;
+
+#tạo table trung gian like_res
+
+create table like_res(
+user_id int,
+res_id int,
+date_like date,
+PRIMARY KEY (user_id, res_id),
+ CONSTRAINT like_res_user_id_fkey FOREIGN key(user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ CONSTRAINT like_res_res_id_fkey FOREIGN key(res_id) REFERENCES restaurant(id) ON DELETE RESTRICT ON UPDATE CASCADE
+
+)
+
+
+select * from like_res;
+
+INSERT INTO like_res (user_id, res_id, date_like) VALUES
+(1, 1, '2023-01-05'),
+(2, 1, '2023-02-15'),
+(3, 2, '2023-03-20'),
+(4, 3, '2023-04-10'),
+(5, 4, '2023-05-25'),
+(6, 5, '2023-06-08'),
+(7, 6, '2023-07-14'),
+(8, 7, '2023-08-18'),
+(9, 8, '2023-09-22'),
+(10, 9, '2023-10-30'),
+(11, 10, '2023-11-12'),
+(12, 11, '2023-12-05'),
+(13, 12, '2023-01-25'),
+(14, 13, '2023-02-02'),
+(15, 14, '2023-03-11'),
+(16, 15, '2023-04-19'),
+(17, 16, '2023-05-27'),
+(18, 17, '2023-06-30'),
+(19, 18, '2023-07-08'),
+(20, 19, '2023-08-16'),
+(21, 20, '2023-09-28'),
+(22, 21, '2023-10-10'),
+(23, 22, '2023-11-20'),
+(24, 23, '2023-12-15');
+
+INSERT INTO like_res (user_id, res_id, date_like) VALUES
+(1, 3, '2023-01-05'),
+(2, 4, '2023-02-15'),
+(1, 5, '2023-03-20'),
+(3, 5, '2023-03-20');
+
+INSERT INTO like_res (user_id, res_id, date_like) VALUES
+(10, 3, '2023-01-05'),
+(10, 4, '2023-02-15'),
+(10, 5, '2023-03-20'),
+(3, 8, '2023-03-20');
+
+
+
+-- count, max, min, avg,... group by đi kèm
+
+
+# tạo table rate_res
+
+create TABLE rate_res(
+user_id INT,
+res_id int,
+amount INT,
+date_rate DATE,
+ PRIMARY KEY (user_id, res_id),
+ CONSTRAINT rate_res_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ CONSTRAINT rate_res_res_id_fkey FOREIGN KEY(res_id) REFERENCES restaurant(id) ON DELETE RESTRICT ON UPDATE CASCADE
+)
+
+
+
+
+INSERT INTO rate_res (user_id, res_id, amount, date_rate) VALUES
+    (1, 1, 4, '2023-01-05'),
+    (2, 2, 3, '2023-02-10'),
+    (3, 3, 5, '2023-03-15'),
+    (4, 4, 4, '2023-04-20'),
+    (5, 5, 2, '2023-05-25'),
+    (1, 6, 3, '2023-06-30'),
+    (2, 7, 4, '2023-07-05');
+  
+
+select * from rate_res 
+  
+create TABLE food_type(
+type_id INT PRIMARY KEY AUTO_INCREMENT,
+type_name VARCHAR (100)
+)
+
+INSERT INTO food_type (type_name) VALUES 
+('Italian'),
+('Mexican'),
+('Japanese'),
+('Indian'),
+('Mediterranean');
+  
+  
+
+
+  create table food(
+ id int AUTO_INCREMENT,
+food_name varchar(100),
+image VARCHAR(255),
+price VARCHAR(255),
+decs VARCHAR(255),
+type_id INT,
+FOREIGN KEY(type_id) REFERENCES food_type(type_id),
+primary key (id)
+)
+ INSERT INTO food (food_name, image, price,decs, type_id) VALUES 
+('Pasta', 'pasta.jpg', '10.99', 'Delicious Italian pasta', 1),
+('Taco', 'taco.jpg', '8.99', 'Authentic Mexican taco', 2),
+('Sushi', 'sushi.jpg', '15.99', 'Fresh Japanese sushi', 3),
+('Curry', 'curry.jpg', '12.99', 'Spicy Indian curry', 4),
+('Hummus', 'hummus.jpg', '7.99', 'Tasty Mediterranean hummus', 5),
+('Pizza', 'pizza.jpg', '11.99', 'Classic Italian pizza', 1),
+('Burrito', 'burrito.jpg', '9.49', 'Hearty Mexican burrito', 2),
+('Ramen', 'ramen.jpg', '13.79', 'Savory Japanese ramen', 3),
+('Biryani', 'biryani.jpg', '14.99', 'Fragrant Indian biryani', 4),
+('Falafel', 'falafel.jpg', '8.99', 'Crunchy Mediterranean falafel', 5),
+('Lasagna', 'lasagna.jpg', '12.49', 'Rich and cheesy Italian lasagna', 1),
+('Enchiladas', 'enchiladas.jpg', '10.99', 'Spicy Mexican enchiladas', 2),
+('Sashimi', 'sashimi.jpg', '16.49', 'Fresh and raw Japanese sashimi', 3),
+('Tandoori Chicken', 'tandoori_chicken.jpg', '13.99', 'Flavorful Indian tandoori chicken', 4),
+('Tabbouleh', 'tabbouleh.jpg', '7.49', 'Refreshing Mediterranean tabbouleh', 5)
+  
+  
+create TABLE order_food(
+user_id INT,
+food_id int,
+amount INT,
+code VARCHAR(255),
+arr_sub_id VARCHAR (255),
+PRIMARY KEY (user_id,food_id),
+ CONSTRAINT order_food_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ CONSTRAINT order_food_food_id_fkey FOREIGN KEY(food_id) REFERENCES food(id) ON DELETE RESTRICT ON UPDATE CASCADE
+)
+
+
+
+
+INSERT INTO order_food (user_id, food_id, amount, code, arr_sub_id) VALUES 
+(1, 1, 2, 'CODE123', 'SUBID456'),
+(2, 3, 1, 'CODE789', 'SUBID101'),
+(3, 5, 3, 'CODE345', 'SUBID222'),
+(1, 2, 1, 'CODE567', 'SUBID777'),
+(2, 4, 2, 'CODE890', 'SUBID333'),
+(3, 6, 2, 'CODE234', 'SUBID999'),
+(1, 7, 1, 'CODE432', 'SUBID111'),
+(2, 8, 2, 'CODE654', 'SUBID888'),
+(3, 9, 3, 'CODE987', 'SUBID444'),
+(1, 10, 1, 'CODE876', 'SUBID555');
+
+CREATE TABLE sub_food(
+sub_id INT PRIMARY KEY auto_increment,
+sub_name VARCHAR(255),
+sub_price FLOAT,
+food_id INT,
+
+CONSTRAINT sub_food_food_id_fkey FOREIGN KEY (food_id) REFERENCES food(id) ON DELETE RESTRICT ON UPDATE CASCADE
+)
+
+INSERT INTO sub_food (sub_name, sub_price, food_id) VALUES 
+('Extra Cheese', 1.50, 1),
+('Guacamole', 2.00, 2),
+('Miso Soup', 1.75, 3),
+('Naan Bread', 1.25, 4),
+('Tahini Sauce', 1.00, 5),
+('Garlic Bread', 1.50, 6);
+
+
+
+
