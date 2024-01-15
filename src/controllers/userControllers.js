@@ -164,6 +164,25 @@ const createOrder = async (req, res) => {
     res.send(`BE error ${error}`);
   }
 };
+const deleteUser = async(req,res)=>{
+  try {
+    let {id} = req.params;
+    let data = await prisma.users.delete({
+        where: {
+           id: Number(id)
+        }
+    });
+    if (data != "") {
+      res.send( "Xóa user thành công !")
+    }
+    else {
+      res.send( "user tồn tại !")
+    }
+}
+catch (error) {
+  res.send(`BE error ${error}`);
+}
+}
 
 
 export {
@@ -173,5 +192,5 @@ export {
   createRate,
   getRateListByRes,
   getLikeListByRes,
-  createLike,getUser
+  createLike,getUser,deleteUser
 };

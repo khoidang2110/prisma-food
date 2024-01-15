@@ -7,38 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model like_res {
-  user users @relation(fields: [user_id], references: [id])
-
-  user_id   Int
-  res       restaurant @relation(fields: [res_id], references: [id])
-  res_id    Int
-  date_like DateTime?  @db.Date
-
-  @@id([user_id, res_id])
-}
-
-
-
-model restaurant {
-  id       Int        @id @default(autoincrement())
-  res_name String?    @db.VarChar(100)
-  image    String?    @db.VarChar(255)
-  decs     String?    @db.VarChar(255)
-  users    like_res[]
-  rate_res rate_res[]
-}
-
-model users {
-  id          Int          @id @default(autoincrement())
-  full_name   String?      @db.VarChar(100)
-  email       String?      @db.VarChar(225)
-  pass_word   String?      @db.VarChar(255)
-  restaurants like_res[]
-  rate_res    rate_res[]
-  order_food  order_food[]
-}
-
 model food {
   id         Int          @id @default(autoincrement())
   food_name  String?      @db.VarChar(100)
@@ -59,30 +27,49 @@ model food_type {
   food      food[]
 }
 
-model rate_res {
-  user      users      @relation(fields: [user_id], references: [id])
-  user_id   Int
-  res       restaurant @relation(fields: [res_id], references: [id])
-  res_id    Int
-  amount    Int?
-  date_rate DateTime?  @db.Date
+model like_res {
+  user_id    Int
+  res_id     Int
+  date_like  DateTime?  @db.Date
+  restaurant restaurant @relation(fields: [res_id], references: [id], onDelete: Cascade)
+  users      users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, res_id])
+  @@index([res_id], map: "like_res_res_id_fkey")
 }
 
-
 model order_food {
- user      users   @relation(fields: [user_id], references: [id])
   user_id    Int
-  food       food    @relation(fields: [food_id], references: [id])
   food_id    Int
   amount     Int?
   code       String? @db.VarChar(255)
   arr_sub_id String? @db.VarChar(255)
-
- 
+  food       food    @relation(fields: [food_id], references: [id], onDelete: Cascade)
+  users      users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, food_id])
+  @@index([food_id], map: "order_food_food_id_fkey")
+}
+
+model rate_res {
+  user_id    Int
+  res_id     Int
+  amount     Int?
+  date_rate  DateTime?  @db.Date
+  restaurant restaurant @relation(fields: [res_id], references: [id], onDelete: Cascade)
+  users      users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, res_id])
+  @@index([res_id], map: "rate_res_res_id_fkey")
+}
+
+model restaurant {
+  id       Int        @id @default(autoincrement())
+  res_name String?    @db.VarChar(100)
+  image    String?    @db.VarChar(255)
+  decs     String?    @db.VarChar(255)
+  like_res like_res[]
+  rate_res rate_res[]
 }
 
 model sub_food {
@@ -90,7 +77,17 @@ model sub_food {
   sub_name  String? @db.VarChar(255)
   sub_price Float?  @db.Float
   food_id   Int?
-  food      food?   @relation(fields: [food_id], references: [id], onDelete: Restrict)
+  food      food?   @relation(fields: [food_id], references: [id], onDelete: Cascade)
 
   @@index([food_id], map: "sub_food_food_id_fkey")
+}
+
+model users {
+  id         Int          @id @default(autoincrement())
+  full_name  String?      @db.VarChar(100)
+  email      String?      @db.VarChar(225)
+  pass_word  String?      @db.VarChar(255)
+  like_res   like_res[]
+  order_food order_food[]
+  rate_res   rate_res[]
 }

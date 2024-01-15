@@ -1,5 +1,5 @@
 import express from "express";
- import { createLike, createOrder, createRate, getLikeListByRes, getLikeListByUser, getRateListByRes, getRateListByUser, getUser } from "../controllers/userControllers.js";
+ import { createLike, createOrder, createRate, deleteUser, getLikeListByRes, getLikeListByUser, getRateListByRes, getRateListByUser, getUser } from "../controllers/userControllers.js";
 import foodRoutes from "./foodRoutes.js";
 import { getFood } from "../controllers/foodControllers.js";
 
@@ -17,4 +17,5 @@ userRoutes.post("/create-like",createLike)
 
 foodRoutes.get("/get-food",getFood)
 userRoutes.get('/get-user',getUser)
+userRoutes.delete('/delete-user/:id',deleteUser)
 export default userRoutes;

@@ -84,8 +84,8 @@ user_id int,
 res_id int,
 date_like date,
 PRIMARY KEY (user_id, res_id),
- CONSTRAINT like_res_user_id_fkey FOREIGN key(user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
- CONSTRAINT like_res_res_id_fkey FOREIGN key(res_id) REFERENCES restaurant(id) ON DELETE RESTRICT ON UPDATE CASCADE
+ CONSTRAINT like_res_user_id_fkey FOREIGN key(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT like_res_res_id_fkey FOREIGN key(res_id) REFERENCES restaurant(id) ON DELETE   CASCADE ON UPDATE CASCADE
 
 )
 
@@ -143,8 +143,8 @@ res_id int,
 amount INT,
 date_rate DATE,
  PRIMARY KEY (user_id, res_id),
- CONSTRAINT rate_res_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
- CONSTRAINT rate_res_res_id_fkey FOREIGN KEY(res_id) REFERENCES restaurant(id) ON DELETE RESTRICT ON UPDATE CASCADE
+ CONSTRAINT rate_res_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  ON UPDATE CASCADE,
+ CONSTRAINT rate_res_res_id_fkey FOREIGN KEY(res_id) REFERENCES restaurant(id) ON DELETE  CASCADE ON UPDATE CASCADE
 )
 
 
@@ -212,8 +212,8 @@ amount INT,
 code VARCHAR(255),
 arr_sub_id VARCHAR (255),
 PRIMARY KEY (user_id,food_id),
- CONSTRAINT order_food_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
- CONSTRAINT order_food_food_id_fkey FOREIGN KEY(food_id) REFERENCES food(id) ON DELETE RESTRICT ON UPDATE CASCADE
+ CONSTRAINT order_food_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE  CASCADE ON UPDATE CASCADE,
+ CONSTRAINT order_food_food_id_fkey FOREIGN KEY(food_id) REFERENCES food(id) ON DELETE  CASCADE ON UPDATE CASCADE
 )
 
 
@@ -237,7 +237,7 @@ sub_name VARCHAR(255),
 sub_price FLOAT,
 food_id INT,
 
-CONSTRAINT sub_food_food_id_fkey FOREIGN KEY (food_id) REFERENCES food(id) ON DELETE RESTRICT ON UPDATE CASCADE
+CONSTRAINT sub_food_food_id_fkey FOREIGN KEY (food_id) REFERENCES food(id) ON DELETE  CASCADE ON UPDATE CASCADE
 )
 
 INSERT INTO sub_food (sub_name, sub_price, food_id) VALUES 
